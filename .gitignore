@@ -92,3 +92,5 @@ ENV/
 tags
 
 *.html
+*.csv
+*.json
