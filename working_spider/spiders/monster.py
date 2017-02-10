@@ -29,9 +29,9 @@ class OffersSpider(scrapy.Spider):
                 offer_id=offer.xpath('div[contains(@class, "jobTitle")]/h2/a/@data-m_impr_j_jobid').extract_first(),
                 job_title=offer.xpath('div[contains(@class, "jobTitle")]/h2/a/span/text()').extract_first(),
                 job_desc=offer.xpath('meta[contains(@itemprop, "description")]/@content').extract_first(),
-                job_loc=offer.xpath('div[contains(@class, "location")]/span[contains(@itemprop, "name")]/text()').extract_first(),
+                job_loc=offer.xpath('div[contains(@class, "location")]/span[contains(@itemprop, "name")]/text()').extract_first(default='???'),
                 post_date=offer.xpath('div[contains(@class, "extras")]/div/time/@datetime').extract_first(),
-                employer=offer.xpath('div[contains(@class, "company")]/a/span/text()').extract_first(),
+                employer=offer.xpath('div[contains(@class, "company")]/a/span/text()').extract_first(default='???'),
                 offer_link=offer.xpath('div[contains(@class, "jobTitle")]/h2/a/@href').extract_first(),
                 portal="Monster.pl"
             )
