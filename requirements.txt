@@ -1,3 +1,4 @@
 scrapy
 pylint
 pydocstyle
+w3lib
