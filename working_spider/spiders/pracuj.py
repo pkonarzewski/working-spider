@@ -20,8 +20,8 @@ class QuotesSpider(scrapy.Spider):
                 job_title=offer.xpath('h2/a/text()').extract_first(),
                 job_desc=offer.xpath('div//p[contains(@class, "o-list_item_text_details")]/text()').extract_first(),
                 job_loc=offer.xpath('p//span[contains(@class, "o-list_item_desc_location_name_text")]/text()').extract_first(),
-                post_date=None,  # TODO: add
-                employer_name=offer.xpath('h3/a/text()').extract_first(),
+                post_date='',  # TODO: add
+                employer=offer.xpath('h3/a/text()').extract_first(),
                 offer_link=response.urljoin(offer.xpath('h2/a/@href').extract_first()),
                 portal='pracuj.pl'
             )
