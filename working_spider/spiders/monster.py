@@ -23,7 +23,7 @@ class OffersSpider(scrapy.Spider):
         current_page = int(response.xpath('//input[contains(@id, "currentPage")]/@value').extract_first())
         self.log('CurrentPage: {}'.format(current_page), level=logging.INFO)
 
-        offers = response.xpath('//div/article[contains(@itemtype, "https://schema.org/JobPosting")]')
+        offers = response.xpath('//div/article[contains(@itemtype, "https://schema.org/JobPosting") and following::hr[contains(@class, "secondResultSeperate")]]')
         for index, offer in enumerate(offers, 1):
             yield OfferItem(
                 offer_id=offer.xpath('div[contains(@class, "jobTitle")]/h2/a/@data-m_impr_j_jobid').extract_first(),
