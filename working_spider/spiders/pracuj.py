@@ -13,10 +13,9 @@ class QuotesSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        xpath_offer = '//ul[@id="mainOfferList"]//li[contains(@itemtype, "http://schema.org/JobPosting")]'
-        for index, offer in enumerate(response.xpath(xpath_offer), 1):
+        for offer in response.xpath('//ul[@id="mainOfferList"]/li[contains(@itemtype, "http://schema.org/JobPosting")]'):
             yield OfferItem(
-                offer_id=offer.xpath('h2').re(r'data-applied-offer-id="(\d+)"')[0],
+                offer_id=offer.xpath('h2/@data-applied-offer-id').extract_first(),
                 job_title=offer.xpath('h2/a/text()').extract_first(),
                 job_desc=offer.xpath('div//p[contains(@class, "o-list_item_text_details")]/text()').extract_first(),
                 job_loc=offer.xpath('p//span[contains(@class, "o-list_item_desc_location_name_text")]/text()').extract_first(),
